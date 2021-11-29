@@ -1,7 +1,10 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Main {
 
@@ -9,18 +12,33 @@ public class Main {
     private static ArrayList<Candidato> candidatos = new ArrayList<>();
     private static ArrayList<Eleitor> eleitores = new ArrayList<>();
     private static Map<Candidato, Integer> votacao = new HashMap<>();
+    private static Set<Eleitor> eleitorSet = new HashSet<>();
 
     public static void main(String[] args) {
-        menu();
+//        menu();
         System.out.println("Urna eletronica");
 
+        Eleitor e = new Eleitor();
+        e.setCodigo(1);
+        e.setNome("Eduardo");
+        eleitores.add(e);
+
+        Candidato candidato = new Candidato();
+        candidato.setNumeroCandidato(12);
+        candidato.setNome("Candidato");
+        candidato.setPartido("Partido");
+        candidatos.add(candidato);
+
+        Votacao();
+
+        listaApuracao();
 
 
-        CadastraEleitor();
-        CadastrarCandidato();
-        ListaEleitores();
+//        CadastraEleitor();
+//        CadastrarCandidato();
+//        ListaEleitores();
     }
-    
+
     public static void menu(){
         int opcao;
         Scanner ads = new Scanner(System.in);
@@ -81,15 +99,64 @@ public class Main {
         }
     }
 
-    public static void votacao()  {
+    public static void ListaCandidatos() {
+        for (Candidato candidato : candidatos) {
+            System.out.println("Número: " + candidato.getNumeroCandidato());
+            System.out.println("Nome: " + candidato.getNome());
+        }
+    }
 
+    public static void Votacao()  {
+        System.out.println("Escolha o eleitor:");
+        Eleitor eleitor = null;
+        while (eleitor == null) {
+            eleitor = solicitaEleitor();
+        }
+
+        System.out.println("Escolha o candidato pelo código:");
+        Candidato candidato = null;
+        while (candidato == null) {
+            candidato = escolheCandidato();
+        }
+
+        eleitores.add(eleitor);
+        votacao.put(candidato, votacao.getOrDefault(candidato, 0) + 1);
+    }
+
+    public static Candidato escolheCandidato() {
+        ListaCandidatos();
+        int codigoCandidato = scanner.nextInt();
+        Optional<Candidato> optionalCandidato = candidatos.stream().filter(c -> c.getNumeroCandidato() == codigoCandidato).findFirst();
+        if (optionalCandidato.isPresent()) {
+            return optionalCandidato.get();
+        } else {
+            System.out.println("Candidato inválido, escolha outro:");
+            return null;
+        }
+    }
+
+    public static Eleitor solicitaEleitor() {
+        ListaEleitores();
+        int codigoEleitor = scanner.nextInt();
+        Optional<Eleitor> optionalEleitor = eleitores.stream().filter(eleitor -> eleitor.getCodigo() == codigoEleitor).findFirst();
+        if (optionalEleitor.isPresent()) {
+            if (eleitorSet.contains(optionalEleitor.get())) {
+                System.out.println("Eleitor inválido, escolha outro eleitor:");
+                return null;
+            } else {
+                return optionalEleitor.get();
+            }
+        } else {
+            System.out.println("Eleitor inválido, escolha outro eleitor:");
+            return null;
+        }
     }
 
     public static void listaApuracao() {
         for (var apuracao : votacao.entrySet()) {
             System.out.println("Número: " + apuracao.getKey().getNumeroCandidato());
             System.out.println("Partido: " + apuracao.getKey().getPartido());
-            System.out.println("Partido: " + apuracao.getKey().getFoto());
+            System.out.println("Foto: " + apuracao.getKey().getFoto());
             System.out.println("Nome: " + apuracao.getKey().getNome());
             System.out.println("Votos: " + apuracao.getValue() + "\n");
         }
