@@ -23,4 +23,19 @@ public class Main {
         candidatos.add(candidato);
         System.out.println(candidato.toString());
     }
+    
+     public static void CadastraEleitor(Object eleitor) {
+        System.out.println("Informe o código: ");
+        String codigo = scanner.nextLine();
+
+        System.out.println("Informe o nome: ");
+        String nome = scanner.nextLine();
+    }
+
+    public static void ListaEleitores(ArrayList<Object> eleitores) {
+        for (Object eleitor : eleitores) {
+            System.out.println("Código: " + eleitor.GetCodigo());
+            System.out.println("Nome: " + eleitor.GetNome());git
+        }
+    }
 }
