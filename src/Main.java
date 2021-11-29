@@ -11,6 +11,7 @@ public class Main {
         Candidato candidato = new Candidato();
 
         ArrayList<Candidato> candidatos = new ArrayList<>();
+        ArrayList<Eleitor> eleitores = new ArrayList<>();
 
         System.out.println("Informe o numero do candidato:");
         candidato.setNumeroCandidato(scanner.nextInt());
@@ -24,14 +25,21 @@ public class Main {
 
         candidatos.add(candidato);
         System.out.println(candidato.toString());
+
+        CadastraEleitor(eleitores);
+        ListaEleitores(eleitores);
     }
     
-     public static void CadastraEleitor(Eleitor eleitor) {
+     public static void CadastraEleitor(ArrayList<Eleitor> eleitores) {
+        Eleitor eleitor = new Eleitor();
+
         System.out.println("Informe o código: ");
         eleitor.setCodigo(scanner.nextInt());
 
         System.out.println("Informe o nome: ");
-         eleitor.setNome(scanner.nextLine());
+        eleitor.setNome(scanner.next());
+
+        eleitores.add(eleitor);
     }
 
     public static void ListaEleitores(ArrayList<Eleitor> eleitores) {
