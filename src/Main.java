@@ -84,4 +84,14 @@ public class Main {
     public static void votacao()  {
 
     }
+
+    public static void listaApuracao() {
+        for (var apuracao : votacao.entrySet()) {
+            System.out.println("Número: " + apuracao.getKey().getNumeroCandidato());
+            System.out.println("Partido: " + apuracao.getKey().getPartido());
+            System.out.println("Partido: " + apuracao.getKey().getFoto());
+            System.out.println("Nome: " + apuracao.getKey().getNome());
+            System.out.println("Votos: " + apuracao.getValue() + "\n");
+        }
+    }
 }
