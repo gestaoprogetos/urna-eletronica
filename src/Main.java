@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -13,6 +15,7 @@ public class Main {
 
         ArrayList<Candidato> candidatos = new ArrayList<>();
         ArrayList<Eleitor> eleitores = new ArrayList<>();
+        Map<Candidato, Integer> votacao = new HashMap<>();
 
         System.out.println("Informe o numero do candidato:");
         candidato.setNumeroCandidato(scanner.nextInt());
@@ -25,7 +28,7 @@ public class Main {
 
 
         candidatos.add(candidato);
-        System.out.println(candidato.toString());
+        System.out.println(candidato);
 
         CadastraEleitor(eleitores);
         ListaEleitores(eleitores);
