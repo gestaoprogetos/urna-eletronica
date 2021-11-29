@@ -3,9 +3,11 @@ import java.util.Scanner;
 
 public class Main {
 
+    private static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
         System.out.println("Urna eletronica");
-        Scanner scanner = new Scanner(System.in);
+
         Candidato candidato = new Candidato();
 
         ArrayList<Candidato> candidatos = new ArrayList<>();
@@ -24,18 +26,18 @@ public class Main {
         System.out.println(candidato.toString());
     }
     
-     public static void CadastraEleitor(Object eleitor) {
+     public static void CadastraEleitor(Eleitor eleitor) {
         System.out.println("Informe o código: ");
-        String codigo = scanner.nextLine();
+        eleitor.setCodigo(scanner.nextInt());
 
         System.out.println("Informe o nome: ");
-        String nome = scanner.nextLine();
+         eleitor.setNome(scanner.nextLine());
     }
 
-    public static void ListaEleitores(ArrayList<Object> eleitores) {
-        for (Object eleitor : eleitores) {
-            System.out.println("Código: " + eleitor.GetCodigo());
-            System.out.println("Nome: " + eleitor.GetNome());git
+    public static void ListaEleitores(ArrayList<Eleitor> eleitores) {
+        for (Eleitor eleitor : eleitores) {
+            System.out.println("Código: " + eleitor.getCodigo());
+            System.out.println("Nome: " + eleitor.getNome());
         }
     }
 }
