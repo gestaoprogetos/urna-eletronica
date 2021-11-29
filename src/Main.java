@@ -6,32 +6,19 @@ import java.util.Scanner;
 public class Main {
 
     private static Scanner scanner = new Scanner(System.in);
+    private static ArrayList<Candidato> candidatos = new ArrayList<>();
+    private static ArrayList<Eleitor> eleitores = new ArrayList<>();
+    private static Map<Candidato, Integer> votacao = new HashMap<>();
 
     public static void main(String[] args) {
         menu();
         System.out.println("Urna eletronica");
 
-        Candidato candidato = new Candidato();
-
-        ArrayList<Candidato> candidatos = new ArrayList<>();
-        ArrayList<Eleitor> eleitores = new ArrayList<>();
-        Map<Candidato, Integer> votacao = new HashMap<>();
-
-        System.out.println("Informe o numero do candidato:");
-        candidato.setNumeroCandidato(scanner.nextInt());
-        System.out.println("Informe o nome do candidato:");
-        candidato.setNome(scanner.next());
-        System.out.println("Informe o partido:");
-        candidato.setPartido(scanner.next());
-        System.out.println("Insira o caminho da foto:");
-        candidato.setFoto(scanner.next());
 
 
-        candidatos.add(candidato);
-        System.out.println(candidato);
-
-        CadastraEleitor(eleitores);
-        ListaEleitores(eleitores);
+        CadastraEleitor();
+        CadastrarCandidato();
+        ListaEleitores();
     }
     
     public static void menu(){
@@ -54,11 +41,28 @@ public class Main {
                 opcao = 0;
             }
 
-        }while (opcao <= 6 && opcao >= 1 );
+        } while (opcao <= 6 && opcao >= 1 );
 
     }
 
-     public static void CadastraEleitor(ArrayList<Eleitor> eleitores) {
+    public static void CadastrarCandidato() {
+        Candidato candidato = new Candidato();
+
+        System.out.println("Informe o numero do candidato:");
+        candidato.setNumeroCandidato(scanner.nextInt());
+        System.out.println("Informe o nome do candidato:");
+        candidato.setNome(scanner.next());
+        System.out.println("Informe o partido:");
+        candidato.setPartido(scanner.next());
+        System.out.println("Insira o caminho da foto:");
+        candidato.setFoto(scanner.next());
+
+
+        candidatos.add(candidato);
+        System.out.println(candidato);
+    }
+
+     public static void CadastraEleitor() {
         Eleitor eleitor = new Eleitor();
 
         System.out.println("Informe o código: ");
@@ -70,10 +74,14 @@ public class Main {
         eleitores.add(eleitor);
     }
 
-    public static void ListaEleitores(ArrayList<Eleitor> eleitores) {
+    public static void ListaEleitores() {
         for (Eleitor eleitor : eleitores) {
             System.out.println("Código: " + eleitor.getCodigo());
             System.out.println("Nome: " + eleitor.getNome());
         }
+    }
+
+    public static void votacao()  {
+
     }
 }
