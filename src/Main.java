@@ -1,10 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
 
@@ -15,52 +9,60 @@ public class Main {
     private static Set<Eleitor> eleitorSet = new HashSet<>();
 
     public static void main(String[] args) {
-//        menu();
+        menu();
         System.out.println("Urna eletronica");
-
-        Eleitor e = new Eleitor();
-        e.setCodigo(1);
-        e.setNome("Eduardo");
-        eleitores.add(e);
-
-        Candidato candidato = new Candidato();
-        candidato.setNumeroCandidato(12);
-        candidato.setNome("Candidato");
-        candidato.setPartido("Partido");
-        candidatos.add(candidato);
-
-        Votacao();
-
-        listaApuracao();
-
-
-//        CadastraEleitor();
-//        CadastrarCandidato();
-//        ListaEleitores();
+        CadastraEleitor();
+        CadastrarCandidato();
+        ListaEleitores();
     }
 
-    public static void menu(){
+    public static void menu() {
         int opcao;
         Scanner ads = new Scanner(System.in);
+        try {
+            do {
+                try {
+                    System.out.println("Escolha uma das opções abaixo: ");
+                    System.out.println("1 - Cadastro do candidato: ");
+                    System.out.println("2 - Cadastro de eleitores: ");
+                    System.out.println("3 - Votação: ");
+                    System.out.println("4 - Apuração: ");
+                    System.out.println("5 - Exibição dos Resultados: ");
+                    System.out.println("6 - Sair: ");
 
-        do{
-            try{
-                System.out.println("Escolha uma das opções abaixo: ");
-                System.out.println("1 - Cadastro do candidato: ");
-                System.out.println("2 - Cadastro de eleitores: ");
-                System.out.println("3 - Votação: ");
-                System.out.println("4 - Apuração: ");
-                System.out.println("5 - Exibição dos Resultados: ");
-                System.out.println("6 - Sair: ");
+                    opcao = ads.nextInt();
+                } catch (Exception e) {
+                    ads = new Scanner(System.in);
+                    System.out.println("Opção não valida. Digite novamente: ");
+                    opcao = 0;
+                }
 
-                opcao = ads.nextInt();
-            }catch (Exception e){
-                System.out.println("Digite novamente");
-                opcao = 0;
+            } while (opcao < 1 || opcao > 6);
+
+            switch (opcao) {
+                case 1:
+                    CadastrarCandidato();
+                    break;
+                case 2:
+                    CadastraEleitor();
+                    break;
+                case 3:
+                    Votacao();
+                    break;
+                case 4:
+                    listaApuracao();
+                    break;
+                case 5:
+                    listaApuracao();
+                    break;
+                default:
+                    ads.close();
+                    break;
             }
-
-        } while (opcao <= 6 && opcao >= 1 );
-
+        } catch (Exception e) {
+            ads = new Scanner(System.in);
+            menu();
+        }
     }
 
     public static void CadastrarCandidato() {
@@ -78,9 +80,10 @@ public class Main {
 
         candidatos.add(candidato);
         System.out.println(candidato);
+        menu();
     }
 
-     public static void CadastraEleitor() {
+    public static void CadastraEleitor() {
         Eleitor eleitor = new Eleitor();
 
         System.out.println("Informe o código: ");
@@ -90,6 +93,7 @@ public class Main {
         eleitor.setNome(scanner.next());
 
         eleitores.add(eleitor);
+        menu();
     }
 
     public static void ListaEleitores() {
@@ -121,6 +125,7 @@ public class Main {
 
         eleitores.add(eleitor);
         votacao.put(candidato, votacao.getOrDefault(candidato, 0) + 1);
+        menu();
     }
 
     public static Candidato escolheCandidato() {
@@ -152,13 +157,14 @@ public class Main {
         }
     }
 
+
     public static void listaApuracao() {
         for (var apuracao : votacao.entrySet()) {
             System.out.println("Número: " + apuracao.getKey().getNumeroCandidato());
             System.out.println("Partido: " + apuracao.getKey().getPartido());
-            System.out.println("Foto: " + apuracao.getKey().getFoto());
             System.out.println("Nome: " + apuracao.getKey().getNome());
             System.out.println("Votos: " + apuracao.getValue() + "\n");
+            menu();
         }
     }
 }
