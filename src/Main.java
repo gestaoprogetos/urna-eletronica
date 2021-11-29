@@ -29,7 +29,7 @@ public class Main {
         CadastraEleitor(eleitores);
         ListaEleitores(eleitores);
     }
-    
+
      public static void CadastraEleitor(ArrayList<Eleitor> eleitores) {
         Eleitor eleitor = new Eleitor();
 
