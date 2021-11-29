@@ -23,7 +23,7 @@ public class Main {
 
 
         candidatos.add(candidato);
-        System.out.println(candidato.toString());
+        System.out.println(candidato);
     }
     
      public static void CadastraEleitor(Eleitor eleitor) {
@@ -31,7 +31,7 @@ public class Main {
         eleitor.setCodigo(scanner.nextInt());
 
         System.out.println("Informe o nome: ");
-         eleitor.setNome(scanner.nextLine());
+        eleitor.setNome(scanner.next());
     }
 
     public static void ListaEleitores(ArrayList<Eleitor> eleitores) {
