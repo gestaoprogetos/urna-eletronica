@@ -7,6 +7,8 @@ public class Main {
     private static ArrayList<Eleitor> eleitores = new ArrayList<>();
     private static Map<Candidato, Integer> votacao = new HashMap<>();
     private static Set<Eleitor> eleitorSet = new HashSet<>();
+    private static Set<Integer> eleitoresCadastrados = new HashSet<>();
+    private static Set<Integer> candidatosCadastrados = new HashSet<>();
 
     public static void main(String[] args) {
         menu();
@@ -68,15 +70,24 @@ public class Main {
     public static void CadastrarCandidato() {
         Candidato candidato = new Candidato();
 
-        System.out.println("Informe o numero do candidato:");
-        candidato.setNumeroCandidato(scanner.nextInt());
-        System.out.println("Informe o nome do candidato:");
-        candidato.setNome(scanner.next());
-        System.out.println("Informe o partido:");
-        candidato.setPartido(scanner.next());
-        System.out.println("Insira o caminho da foto:");
-        candidato.setFoto(scanner.next());
+        while (true) {
+            System.out.println("Informe o numero do candidato:");
+            candidato.setNumeroCandidato(scanner.nextInt());
 
+            if (!candidatosCadastrados.add(candidato.getNumeroCandidato())) {
+                System.out.println("Eleitor já cadastrado");
+                continue;
+            }
+
+            System.out.println("Informe o nome do candidato:");
+            candidato.setNome(scanner.next());
+            System.out.println("Informe o partido:");
+            candidato.setPartido(scanner.next());
+            System.out.println("Insira o caminho da foto:");
+            candidato.setFoto(scanner.next());
+
+            break;
+        }
 
         candidatos.add(candidato);
         System.out.println(candidato);
@@ -86,11 +97,20 @@ public class Main {
     public static void CadastraEleitor() {
         Eleitor eleitor = new Eleitor();
 
-        System.out.println("Informe o código: ");
-        eleitor.setCodigo(scanner.nextInt());
+        while (true) {
+            System.out.println("Informe o código: ");
+            eleitor.setCodigo(scanner.nextInt());
 
-        System.out.println("Informe o nome: ");
-        eleitor.setNome(scanner.next());
+            if (!eleitoresCadastrados.add(eleitor.getCodigo())) {
+                System.out.println("Eleitor já cadastrado");
+                continue;
+            }
+
+            System.out.println("Informe o nome: ");
+            eleitor.setNome(scanner.next());
+
+            break;
+        }
 
         eleitores.add(eleitor);
         menu();
