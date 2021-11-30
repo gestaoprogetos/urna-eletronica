@@ -75,7 +75,7 @@ public class Main {
             }
 
             System.out.println("Informe o nome do candidato:");
-            candidato.setNome(scanner.next());
+            candidato.setNome(scanner.next().trim());
             System.out.println("Informe o partido:");
             candidato.setPartido(scanner.next());
             System.out.println("Insira o caminho da foto:");
@@ -143,6 +143,7 @@ public class Main {
 
         if (candidatos.isEmpty()) {
             System.out.println("Nao existem candidatos cadastrados");
+            menu();
         }
 
         System.out.println("Escolha o eleitor:");
