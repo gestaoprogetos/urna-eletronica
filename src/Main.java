@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -120,7 +121,8 @@ public class Main {
     }
 
     public static void ListaEleitores() {
-        for (Eleitor eleitor : eleitores) {
+        List<Eleitor> collect = eleitores.stream().filter(e -> !eleitorSet.contains(e)).collect(Collectors.toList());
+        for (Eleitor eleitor : collect) {
             System.out.println("Código: " + eleitor.getCodigo());
             System.out.println("Nome: " + eleitor.getNome());
         }
