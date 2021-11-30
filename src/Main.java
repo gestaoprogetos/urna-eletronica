@@ -139,6 +139,10 @@ public class Main {
             menu();
         }
 
+        if (candidatos.isEmpty()) {
+            System.out.println("Nao existem candidatos cadastrados");
+        }
+
         System.out.println("Escolha o eleitor:");
         Eleitor eleitor = null;
         while (eleitor == null) {
