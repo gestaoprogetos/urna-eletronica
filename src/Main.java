@@ -12,59 +12,44 @@ public class Main {
 
     public static void main(String[] args) {
         menu();
-        System.out.println("Urna eletronica");
-        CadastraEleitor();
-        CadastrarCandidato();
-        ListaEleitores();
     }
 
     public static void menu() {
         int opcao;
-        Scanner ads = new Scanner(System.in);
-        try {
             do {
                 try {
                     System.out.println("Escolha uma das opções abaixo: ");
                     System.out.println("1 - Cadastro do candidato: ");
                     System.out.println("2 - Cadastro de eleitores: ");
                     System.out.println("3 - Votação: ");
-                    System.out.println("4 - Apuração: ");
-                    System.out.println("5 - Exibição dos Resultados: ");
-                    System.out.println("6 - Sair: ");
+                    System.out.println("4 - Apuração e exibição dos resultados: ");
+                    System.out.println("5 - Sair: ");
 
-                    opcao = ads.nextInt();
+                    opcao = scanner.nextInt();
                 } catch (Exception e) {
-                    ads = new Scanner(System.in);
                     System.out.println("Opção não valida. Digite novamente: ");
                     opcao = 0;
                 }
 
-            } while (opcao < 1 || opcao > 6);
+                switch (opcao) {
+                    case 1:
+                        CadastrarCandidato();
+                        break;
+                    case 2:
+                        CadastraEleitor();
+                        break;
+                    case 3:
+                        Votacao();
+                        break;
+                    case 4:
+                        listaApuracao();
+                        System.exit(0);
+                        break;
+                    default:
+                        break;
+                }
 
-            switch (opcao) {
-                case 1:
-                    CadastrarCandidato();
-                    break;
-                case 2:
-                    CadastraEleitor();
-                    break;
-                case 3:
-                    Votacao();
-                    break;
-                case 4:
-                    listaApuracao();
-                    break;
-                case 5:
-                    listaApuracao();
-                    break;
-                default:
-                    ads.close();
-                    break;
-            }
-        } catch (Exception e) {
-            ads = new Scanner(System.in);
-            menu();
-        }
+            } while (opcao < 1 || opcao > 5);
     }
 
     public static void CadastrarCandidato() {
@@ -75,7 +60,7 @@ public class Main {
             candidato.setNumeroCandidato(scanner.nextInt());
 
             if (!candidatosCadastrados.add(candidato.getNumeroCandidato())) {
-                System.out.println("Eleitor já cadastrado");
+                System.out.println("Candidato já cadastrado");
                 continue;
             }
 
@@ -98,7 +83,7 @@ public class Main {
         Eleitor eleitor = new Eleitor();
 
         while (true) {
-            System.out.println("Informe o código: ");
+            System.out.println("Informe o número do eleitor: ");
             eleitor.setCodigo(scanner.nextInt());
 
             if (!eleitoresCadastrados.add(eleitor.getCodigo())) {
@@ -131,6 +116,11 @@ public class Main {
     }
 
     public static void Votacao()  {
+        if (eleitores.isEmpty() || eleitorSet.containsAll(eleitores)) {
+            System.out.println("Nao existem eleitores disponiveis para votar");
+            menu();
+        }
+
         System.out.println("Escolha o eleitor:");
         Eleitor eleitor = null;
         while (eleitor == null) {
@@ -143,7 +133,7 @@ public class Main {
             candidato = escolheCandidato();
         }
 
-        eleitores.add(eleitor);
+        eleitorSet.add(eleitor);
         votacao.put(candidato, votacao.getOrDefault(candidato, 0) + 1);
         menu();
     }
@@ -184,7 +174,6 @@ public class Main {
             System.out.println("Partido: " + apuracao.getKey().getPartido());
             System.out.println("Nome: " + apuracao.getKey().getNome());
             System.out.println("Votos: " + apuracao.getValue() + "\n");
-            menu();
         }
     }
 }
