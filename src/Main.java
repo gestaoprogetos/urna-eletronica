@@ -43,7 +43,6 @@ public class Main {
                         break;
                     case 4:
                         listaApuracao();
-                        System.exit(0);
                         break;
                     default:
                         break;
@@ -57,7 +56,17 @@ public class Main {
 
         while (true) {
             System.out.println("Informe o numero do candidato:");
-            candidato.setNumeroCandidato(scanner.nextInt());
+            Integer numeroCandidato = null;
+            while (numeroCandidato == null) {
+                try {
+                    numeroCandidato = scanner.nextInt();
+                } catch (Exception e) {
+                    System.out.println("Valor inválido, informe outro");
+                    scanner = new Scanner(System.in);
+                }
+            }
+
+            candidato.setNumeroCandidato(numeroCandidato);
 
             if (!candidatosCadastrados.add(candidato.getNumeroCandidato())) {
                 System.out.println("Candidato já cadastrado");
@@ -84,7 +93,16 @@ public class Main {
 
         while (true) {
             System.out.println("Informe o número do eleitor: ");
-            eleitor.setCodigo(scanner.nextInt());
+            Integer numeroEleitor = null;
+            while (numeroEleitor == null) {
+                try {
+                    numeroEleitor = scanner.nextInt();
+                } catch (Exception e) {
+                    System.out.println("Valor inválido, informe outro");
+                    scanner = new Scanner(System.in);
+                }
+            }
+            eleitor.setCodigo(numeroEleitor);
 
             if (!eleitoresCadastrados.add(eleitor.getCodigo())) {
                 System.out.println("Eleitor já cadastrado");
@@ -169,11 +187,16 @@ public class Main {
 
 
     public static void listaApuracao() {
+        if (votacao.isEmpty()) {
+            System.out.println("Não existem votos válidos.");
+            menu();
+        }
         for (var apuracao : votacao.entrySet()) {
             System.out.println("Número: " + apuracao.getKey().getNumeroCandidato());
             System.out.println("Partido: " + apuracao.getKey().getPartido());
             System.out.println("Nome: " + apuracao.getKey().getNome());
             System.out.println("Votos: " + apuracao.getValue() + "\n");
         }
+        System.exit(0);
     }
 }
